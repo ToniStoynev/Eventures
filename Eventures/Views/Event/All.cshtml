@@ -1,0 +1,31 @@
+﻿@model List<Eventures.Models.ViewModels.EventsAllViewModel>
+
+@{
+    ViewData["Title"] = "All";
+}
+    <h1 class="text-center mt-3">All Events</h1>
+    <hr class=" mt-3 bg-eventures hr2" />
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col" class="font-weight-bold">#</th>
+                <th scope="col" class="font-weight-bold">Name</th>
+                <th scope="col" class="font-weight-bold">Start</th>
+                <th scope="col" class="font-weight-bold">End</th>
+                <th scope="col" class="font-weight-bold">Place</th>
+            </tr>
+        </thead>
+        <tbody>
+           @for (int i = 0; i < Model.Count(); i++)
+           {
+            <tr>
+                <th scope="col">@(i + 1)</th>
+                <th scope="col">@Model[i].Name</th>
+                <th scope="col">@Model[i].Start</th>
+                <th scope="col">@Model[i].End</th>
+                <th scope="col">@Model[i].Place</th>
+            </tr>
+           }
+        </tbody>
+    </table>
+    <hr class=" mt-3 bg-eventures hr2" />
