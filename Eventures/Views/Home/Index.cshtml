@@ -17,7 +17,7 @@ else
     @if (this.User.IsInRole("Admin"))
     {
         <div class="jumbotron bg-eventures w-75 mx-auto m-8">
-            <h2 class="font-weight-bold text-center">Greetings, Administrator - Admin!</h2>
+            <h2 class="font-weight-bold text-center">Greetings, Administrator - @this.User.Identity.Name!</h2>
             <hr class="bg-dark h2" />
             <h4 class="text-center">Enjoy your work.</h4>
         </div>
