@@ -42,6 +42,8 @@ namespace Eventures.Areas.Identity.Pages.Account
         {
             [Required]
             [Display(Name = "Username")]
+            [StringLength(maximumLength:int.MaxValue, ErrorMessage = "Username must be at least 3 symbols",  MinimumLength =3)]
+            [RegularExpression(@"[\*\.A-Za-z0-9_-]+")]
             public string Username { get; set; }
 
             [Required]
@@ -50,7 +52,7 @@ namespace Eventures.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
@@ -70,6 +72,7 @@ namespace Eventures.Areas.Identity.Pages.Account
 
             [Required]
             [Display(Name = "UCN")]
+            [StringLength(maximumLength:10, ErrorMessage ="UCN must be exatly 10 characters", MinimumLength =10)]
             public string UCN { get; set; }
         }
 
