@@ -19,9 +19,7 @@ namespace Eventures.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<EventuresUser> _signInManager;
         private readonly UserManager<EventuresUser> _userManager;
-        private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
-
+     
         public RegisterModel(
             UserManager<EventuresUser> userManager,
             SignInManager<EventuresUser> signInManager,
@@ -29,8 +27,7 @@ namespace Eventures.Areas.Identity.Pages.Account
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _logger = logger;
-           // _emailSender = emailSender;
+  
         }
 
         [BindProperty]

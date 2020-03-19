@@ -41,7 +41,7 @@ namespace Eventures
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<EventuresUser, IdentityRole>()
-                //.AddDefaultUI(UIFramework.Bootstrap4)
+                .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<EventuresDbContext>()
                 .AddDefaultTokenProviders();
 
