@@ -6,6 +6,7 @@ using Eventures.Data;
 using Eventures.Domain;
 using Eventures.Models.BindingModels;
 using Eventures.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eventures.Controllers
@@ -18,13 +19,15 @@ namespace Eventures.Controllers
         {
             this.db = db;
         }
+
+        [Authorize]
         public IActionResult All()
         {
             var events = this.db.Events.Select(x => new EventsAllViewModel
             {
                 Name = x.Name,
-                Start = x.Start.ToString("dd-MMM-yyyy HH:mm"),
-                End = x.Start.ToString("dd-MMM-yyyy HH:mm"),
+                Start = x.Start,
+                End = x.End,
                 Place = x.Place
             })
             .ToList();
@@ -32,6 +35,7 @@ namespace Eventures.Controllers
             return View(events);
         }
 
+        [Authorize]
         public IActionResult Create()
         {
             return this.View();
@@ -40,6 +44,11 @@ namespace Eventures.Controllers
         [HttpPost]
         public IActionResult Create(CreateEventBindingModel input)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
             var eventFordb = new Event
             {
                 Name = input.Name,

@@ -3,7 +3,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1 class="text-center mt-3">Register</h1>
+<h1 class="text-center mt-3">Create Event</h1>
 
 <form method="post" class="mx-auto w-50">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -13,14 +13,14 @@
             <div class="d-flex justify-content-center">
                 <label asp-for="@Model.Name" class="font-weight-bold"></label>
             </div>
-            <input asp-for="@Model.Name" class="form-control" type="text" placeholder="Name" />
+            <input asp-for="@Model.Name" class="form-control" placeholder="Name" />
             <span asp-validation-for="@Model.Name" class="text-danger"></span>
         </div>
         <div class="form-group w-45">
             <div class="d-flex justify-content-center">
                 <label asp-for="@Model.Place" class="font-weight-bold"></label>
             </div>
-            <input asp-for="@Model.Place" class="form-control" type="text" placeholder="Place" />
+            <input asp-for="@Model.Place" class="form-control" placeholder="Place" />
             <span asp-validation-for="@Model.Place" class="text-danger"></span>
         </div>
     </div>
@@ -30,14 +30,14 @@
             <div class="d-flex justify-content-center">
                 <label asp-for="@Model.Start" class="font-weight-bold"></label>
             </div>
-            <input asp-for="@Model.Start" class="form-control" type="datetime-local" placeholder="Start" />
+            <input asp-for="@Model.Start" class="form-control" placeholder="Start" />
             <span asp-validation-for="@Model.Start" class="text-danger"></span>
         </div>
         <div class="form-group w-45">
             <div class="d-flex justify-content-center">
                 <label asp-for="@Model.End" class="font-weight-bold"></label>
             </div>
-            <input asp-for="@Model.End" class="form-control" type="datetime-local" placeholder="End" />
+            <input asp-for="@Model.End" class="form-control"  placeholder="End" />
             <span asp-validation-for="@Model.End" class="text-danger"></span>
         </div>
     </div>
@@ -49,14 +49,14 @@
             <div class="d-flex justify-content-center">
                 <label asp-for="@Model.TotalTickets" class="font-weight-bold"></label>
             </div>
-            <input asp-for="@Model.TotalTickets" class="form-control" type="number" placeholder="Total tickets" />
+            <input asp-for="@Model.TotalTickets" class="form-control"  placeholder="Total tickets" />
             <span asp-validation-for="@Model.TotalTickets" class="text-danger"></span>
         </div>
         <div class="form-group w-45">
             <div class="d-flex justify-content-center">
                 <label asp-for="@Model.PricePerTicket" class="font-weight-bold"></label>
             </div>
-            <input asp-for="@Model.PricePerTicket" class="form-control" type="text" placeholder="Last name" />
+            <input asp-for="@Model.PricePerTicket" class="form-control" placeholder="Price per ticket" />
             <span asp-validation-for="@Model.PricePerTicket" class="text-danger"></span>
         </div>
     </div>

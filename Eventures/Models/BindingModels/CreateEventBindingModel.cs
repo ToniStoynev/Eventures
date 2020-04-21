@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Eventures.Models.BindingModels
 {
-    public class CreateEventBindingModel
+    public class CreateEventBindingModel : IValidatableObject
     {
 
         [Required]
@@ -17,7 +17,7 @@ namespace Eventures.Models.BindingModels
         public string Place { get; set; }
 
         [Required]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         public DateTime Start { get; set; }
 
         [Required]
@@ -25,11 +25,19 @@ namespace Eventures.Models.BindingModels
         public DateTime End { get; set; }
 
         [Required]
-        [Range(0, 500000)]
+        [Range(1, 500000)]
         public int TotalTickets { get; set; }
 
         [Required]
         [DataType(DataType.Currency)]
         public decimal PricePerTicket { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (End < Start)
+            {
+                yield return new ValidationResult("End date can not be before start date !!!");
+            }
+        }
     }
 }
