@@ -7,6 +7,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Eventures.Extensions;
+    using Eventures.Services;
 
     public class Startup
     {
@@ -33,6 +34,7 @@
 
             services.ConfigureIdentityOptions();
 
+            services.AddTransient<IEventService, EventService>();
             services.AddMvc(
                 options => options
                 .Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))

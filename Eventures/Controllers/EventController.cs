@@ -1,32 +1,35 @@
 ﻿namespace Eventures.Controllers
 {
     using System.Linq;
-    using Eventures.Data;
-    using Eventures.Domain;
+    using Eventures.Services;
     using Eventures.Models.BindingModels;
     using Eventures.Models.ViewModels;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Eventures.Services.Models;
+
     public class EventController : Controller
     {
-        private readonly EventuresDbContext db;
+        private readonly IEventService eventService;
 
-        public EventController(EventuresDbContext db)
+        public EventController(IEventService eventService)
         {
-            this.db = db;
+            this.eventService = eventService;
         }
 
         [Authorize]
         public IActionResult All()
         {
-            var events = this.db.Events.Select(x => new EventsAllViewModel
-            {
-                Name = x.Name,
-                Start = x.Start,
-                End = x.End,
-                Place = x.Place
-            })
-            .ToList();
+            var events = this.eventService
+                             .GetAll()
+                             .Select(e => new EventsAllViewModel()
+                             {
+                                 Name = e.Name,
+                                 Place = e.Place,
+                                 Start = e.Start,
+                                 End = e.End
+                             })
+                             .ToList();
 
             return View(events);
         }
@@ -46,17 +49,17 @@
                 return this.View(input);
             }
 
-            var eventFordb = new Event
+            var serviceModel = new CreateEventServiceModel()
             {
                 Name = input.Name,
                 Place = input.Place,
                 Start = input.Start,
-                End  = input.End,
-                TotalTickets = input.TotalTickets,
-                PricePerTicket = input.PricePerTicket
+                End = input.End,
+                PricePerTicket = input.PricePerTicket,
+                TotalTickets = input.TotalTickets
             };
-            this.db.Events.Add(eventFordb);
-            this.db.SaveChanges();
+
+            this.eventService.CreateEvent(serviceModel);
 
             return this.Redirect("All");
         }

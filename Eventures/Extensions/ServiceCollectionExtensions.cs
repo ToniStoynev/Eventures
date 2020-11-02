@@ -1,8 +1,7 @@
-﻿using Eventures.Data;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.EntityFrameworkCore;
-namespace Eventures.Extensions
+﻿namespace Eventures.Extensions
 {
+    using Eventures.Data;
+    using Microsoft.EntityFrameworkCore;
     using Eventures.Domain;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.UI;

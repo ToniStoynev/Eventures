@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Eventures.Models;
-
-namespace Eventures.Controllers
+﻿namespace Eventures.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
     public class HomeController : Controller
     {
         public IActionResult Index()
