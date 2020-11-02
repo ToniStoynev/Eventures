@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Eventures.Data;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Eventures.Domain;
-
-namespace Eventures
+﻿namespace Eventures
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Eventures.Extensions;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -36,28 +27,11 @@ namespace Eventures
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<EventuresDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext(Configuration);
 
-            services.AddIdentity<EventuresUser, IdentityRole>()
-                .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<EventuresDbContext>()
-                .AddDefaultTokenProviders();
+            services.AddIdentity();
 
-            services.Configure<IdentityOptions>(option =>
-            {
-                option.Password.RequireDigit = false;
-                option.Password.RequireLowercase = false;
-                option.Password.RequireNonAlphanumeric = false;
-                option.Password.RequireUppercase = false;
-                option.Password.RequiredLength = 3;
-                option.Password.RequiredUniqueChars = 0;
-
-                option.User.RequireUniqueEmail = false;
-                 
-
-            });
+            services.ConfigureIdentityOptions();
 
             services.AddMvc(
                 options => options
@@ -68,30 +42,8 @@ namespace Eventures
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-
-            using (var serviceScope = app.ApplicationServices.CreateScope())
-            {
-                using (var context = serviceScope.ServiceProvider.GetRequiredService<EventuresDbContext>())
-                {
-                    context.Database.EnsureCreated();
-                    
-                    if (!context.Roles.Any())
-                    {
-                        context.Roles.Add(new IdentityRole
-                        {
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        });
-
-                        context.Roles.Add(new IdentityRole
-                        {
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
-                    }
-                    context.SaveChanges();
-                }
-            }
+            app.SeedRoles();
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

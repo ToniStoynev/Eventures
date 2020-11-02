@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Eventures.Data;
-using Eventures.Domain;
-using Eventures.Models.BindingModels;
-using Eventures.Models.ViewModels;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Eventures.Controllers
+﻿namespace Eventures.Controllers
 {
+    using System.Linq;
+    using Eventures.Data;
+    using Eventures.Domain;
+    using Eventures.Models.BindingModels;
+    using Eventures.Models.ViewModels;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
     public class EventController : Controller
     {
         private readonly EventuresDbContext db;
@@ -41,6 +37,7 @@ namespace Eventures.Controllers
             return this.View();
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Create(CreateEventBindingModel input)
         {
