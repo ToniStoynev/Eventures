@@ -4,7 +4,6 @@
     using Eventures.Domain;
     using Eventures.Services.Mapping;
     using Eventures.Services.Models;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     public class EventService : IEventService
@@ -29,7 +28,7 @@
 
         public IQueryable<EventsAllServiceModel> GetAll()
         {
-            return this.db
+            return  this.db
                     .Events
                     .To<EventsAllServiceModel>();
         }

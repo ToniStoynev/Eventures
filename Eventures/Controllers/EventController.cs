@@ -8,12 +8,13 @@
     using Microsoft.AspNetCore.Mvc;
     using Eventures.Services.Models;
     using System.Linq;
+    using System.Threading.Tasks;
 
     public class EventController : Controller
     {
         private readonly IEventService eventService;
 
-        public EventController(IEventService eventService)
+        public EventController(IEventService eventService) 
         {
             this.eventService = eventService;
         }
@@ -21,7 +22,7 @@
         [Authorize]
         public IActionResult All()
         {
-            var events = this.eventService
+            var events =  this.eventService
                              .GetAll()
                              .To<EventsAllViewModel>()
                              .ToList();
@@ -37,7 +38,7 @@
 
         [Authorize]
         [HttpPost]
-        public IActionResult Create(CreateEventBindingModel input)
+        public async Task<IActionResult> Create(CreateEventBindingModel input)
         {
             if (!ModelState.IsValid)
             {
@@ -46,7 +47,7 @@
 
             var serviceModel = AutoMapper.Mapper.Map<CreateEventServiceModel>(input);
 
-            this.eventService.CreateEvent(serviceModel);
+           await this.eventService.CreateEvent(serviceModel);
 
             return this.Redirect("All");
         }
