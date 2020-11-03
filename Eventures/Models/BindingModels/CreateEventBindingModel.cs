@@ -1,10 +1,12 @@
 ﻿namespace Eventures.Models.BindingModels
 {
+    using Eventures.Services.Mapping;
+    using Eventures.Services.Models;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class CreateEventBindingModel : IValidatableObject
+    public class CreateEventBindingModel : IValidatableObject, IMapTo<CreateEventServiceModel>
     {
 
         [Required]

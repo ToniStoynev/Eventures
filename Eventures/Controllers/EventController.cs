@@ -1,12 +1,13 @@
 ﻿namespace Eventures.Controllers
 {
-    using System.Linq;
+    using Eventures.Services.Mapping;
     using Eventures.Services;
     using Eventures.Models.BindingModels;
     using Eventures.Models.ViewModels;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Eventures.Services.Models;
+    using System.Linq;
 
     public class EventController : Controller
     {
@@ -22,13 +23,7 @@
         {
             var events = this.eventService
                              .GetAll()
-                             .Select(e => new EventsAllViewModel()
-                             {
-                                 Name = e.Name,
-                                 Place = e.Place,
-                                 Start = e.Start,
-                                 End = e.End
-                             })
+                             .To<EventsAllViewModel>()
                              .ToList();
 
             return View(events);
@@ -49,15 +44,7 @@
                 return this.View(input);
             }
 
-            var serviceModel = new CreateEventServiceModel()
-            {
-                Name = input.Name,
-                Place = input.Place,
-                Start = input.Start,
-                End = input.End,
-                PricePerTicket = input.PricePerTicket,
-                TotalTickets = input.TotalTickets
-            };
+            var serviceModel = AutoMapper.Mapper.Map<CreateEventServiceModel>(input);
 
             this.eventService.CreateEvent(serviceModel);
 

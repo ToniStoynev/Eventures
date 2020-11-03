@@ -1,7 +1,9 @@
 ﻿namespace Eventures.Services.Models
 {
+    using Eventures.Domain;
+    using Eventures.Services.Mapping;
     using System;
-    public class EventsAllServiceModel
+    public class EventsAllServiceModel : IMapFrom<Event>
     {
         public string Name { get; set; }
         public string Place { get; set; }

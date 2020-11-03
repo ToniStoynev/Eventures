@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Eventures.Models.ViewModels
+﻿namespace Eventures.Models.ViewModels
 {
-    public class EventsAllViewModel
+    using Eventures.Services.Mapping;
+    using Eventures.Services.Models;
+    using System;
+    public class EventsAllViewModel : IMapFrom<EventsAllServiceModel>
     {
         public string Name { get; set; }
 

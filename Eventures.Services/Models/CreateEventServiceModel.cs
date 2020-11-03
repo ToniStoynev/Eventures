@@ -1,8 +1,10 @@
 ﻿namespace Eventures.Services.Models
 {
+    using Eventures.Domain;
+    using Eventures.Services.Mapping;
     using System;
 
-    public class CreateEventServiceModel
+    public class CreateEventServiceModel : IMapTo<Event>
     {
         public string Name { get; set; }
         public string Place { get; set; }

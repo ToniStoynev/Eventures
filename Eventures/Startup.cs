@@ -8,6 +8,10 @@
     using Microsoft.Extensions.DependencyInjection;
     using Eventures.Extensions;
     using Eventures.Services;
+    using Eventures.Services.Mapping;
+    using Eventures.Models.ViewModels;
+    using System.Reflection;
+    using Eventures.Services.Models;
 
     public class Startup
     {
@@ -44,8 +48,11 @@
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            AutoMapperConfig.RegisterMappings(typeof(EventsAllViewModel).GetTypeInfo().Assembly,
+                typeof(CreateEventServiceModel).GetTypeInfo().Assembly);
+
             app.SeedRoles();
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
